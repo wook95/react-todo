@@ -2,7 +2,7 @@ import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
 export const colors = createThemeContract({
   grey: {
-    '000': '',
+    '050': '',
     '100': '',
     '200': '',
     '300': '',
@@ -14,7 +14,7 @@ export const colors = createThemeContract({
     '900': '',
   },
   blue: {
-    '000': '',
+    '050': '',
     '100': '',
     '200': '',
     '300': '',
@@ -26,7 +26,7 @@ export const colors = createThemeContract({
     '900': '',
   },
   red: {
-    '000': '',
+    '050': '',
     '100': '',
     '200': '',
     '300': '',
@@ -41,7 +41,7 @@ export const colors = createThemeContract({
 
 export const light = createTheme(colors, {
   grey: {
-    '000': '#f9fafb',
+    '050': '#f9fafb',
     '100': '#f2f4f6',
     '200': '#e5e8eb',
     '300': '#d1d6db',
@@ -53,7 +53,7 @@ export const light = createTheme(colors, {
     '900': '#191f28',
   },
   blue: {
-    '000': '#e8f3ff',
+    '050': '#e8f3ff',
     '100': '#c9e2ff',
     '200': '#90c2ff',
     '300': '#64a8ff',
@@ -65,7 +65,7 @@ export const light = createTheme(colors, {
     '900': '#194aa6',
   },
   red: {
-    '000': '#ffeeee',
+    '050': '#ffeeee',
     '100': '#ffd4d6',
     '200': '#feafb4',
     '300': '#fb8890',
@@ -80,7 +80,7 @@ export const light = createTheme(colors, {
 
 export const dark = createTheme(colors, {
   grey: {
-    '000': '#202027',
+    '050': '#202027',
     '100': '#2c2c35',
     '200': '#3c3c47',
     '300': '#4d4d59',
@@ -92,7 +92,7 @@ export const dark = createTheme(colors, {
     '900': '#FFF',
   },
   blue: {
-    '000': '#202c4d',
+    '050': '#202c4d',
     '100': '#23386a',
     '200': '#25478c',
     '300': '#265ab3',
@@ -104,7 +104,7 @@ export const dark = createTheme(colors, {
     '900': '#c8e7ff',
   },
   red: {
-    '000': '#3c2020',
+    '050': '#3c2020',
     '100': '#562025',
     '200': '#7a242d',
     '300': '#9e2733',

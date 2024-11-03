@@ -11,6 +11,8 @@
       "@/*": ["./*"],
       "@app/*": ["./app/*"],
       "@pages/*": ["./pages/*"],
+      "@features/*": ["./features/*"],
+      "@widgets/*": ["./widgets/*"],
       "@shared/*": ["./shared/*"]
     },
 

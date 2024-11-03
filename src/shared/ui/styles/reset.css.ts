@@ -3,8 +3,7 @@
     GitHub page: https://github.com/elad2412/the-new-css-reset
 ***/
 
-import { globalStyle } from '@vanilla-extract/css';
-import { layer } from '@vanilla-extract/css';
+import { globalStyle, layer } from '@vanilla-extract/css';
 
 export const reset = layer('reset');
 
@@ -48,6 +47,14 @@ globalStyle('html', {
       MozTextSizeAdjust: 'none',
       WebkitTextSizeAdjust: 'none',
       textSizeAdjust: 'none',
+    },
+  },
+});
+
+globalStyle('body, #root', {
+  '@layer': {
+    [reset]: {
+      height: '100vh',
     },
   },
 });
