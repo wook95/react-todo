@@ -1,9 +1,10 @@
 import * as styles from '@features/auth/ui/AuthForm.css';
 import { FieldValue, useForm } from 'react-hook-form';
+import { LoginRequest, SignUpRequest } from '../api/auth.type';
 
 interface AuthFormProps {
   title: string;
-  onClick: () => void;
+  onClick: (params: LoginRequest | SignUpRequest) => void;
 }
 
 interface FormData {
@@ -24,9 +25,13 @@ export const AuthForm = ({ title, onClick }: AuthFormProps) => {
   } = useForm<FormData>();
   const onSubmit = (data: FieldValue<FormData>) => {
     console.log(data);
-    onClick();
+    onClick(data as LoginRequest);
     reset();
   };
+
+  // 1. 외부에서 onClick을 주입받는게 맞을까?
+  // signUp, signIn 페이지 컴포넌트에서 주입하지 말고 AuthForm에서 종류에 따라 여기서 직접 하는게 좋을까?
+  // 2. 로그인 이후 로직은 어디서 처리하는게 좋을까
 
   return (
     <div className={styles.container}>
