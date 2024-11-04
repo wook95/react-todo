@@ -1,14 +1,21 @@
 import Inbox from '@/pages/inbox/ui/Inbox';
 import SignIn from '@/pages/sign-in/ui/SignIn';
 import SignUp from '@/pages/sign-up/ui/SignUp';
-import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
+import { localStorageKeys } from '@/shared/constant';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 
-const guardAuth = (children: RouteObject[]) => {
-  const isAuthorized = true;
+/**
+ * @Todo 저스탠드에 있는 상태로 꺼내오기
+ * @Todo Add error boundary
+ */
+const AuthGuard = ({ children }: { children: React.ReactNode }) => {
+  const isAuthorized = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
+  return isAuthorized ? <>{children}</> : <Navigate to="/" replace />;
+};
 
-  if (!isAuthorized) return [{ path: '*', element: <Navigate to="/" /> }];
-
-  return children;
+const UnAuthGuard = ({ children }: { children: React.ReactNode }) => {
+  const isAuthorized = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
+  return !isAuthorized ? <>{children}</> : <Navigate to="/app/inbox" replace />;
 };
 
 /**
@@ -22,6 +29,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/auth',
+    element: (
+      <UnAuthGuard>
+        <Outlet />
+      </UnAuthGuard>
+    ),
     children: [
       {
         path: 'sign-in',
@@ -35,12 +47,17 @@ export const router = createBrowserRouter([
   },
   {
     path: '/app',
-    children: guardAuth([
+    element: (
+      <AuthGuard>
+        <Outlet />
+      </AuthGuard>
+    ),
+    children: [
       {
         path: 'inbox',
         element: <Inbox />,
       },
-    ]),
+    ],
   },
   {
     path: '*',
