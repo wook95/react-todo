@@ -5,7 +5,7 @@ import {
   LoginResponse,
   SignUpRequest,
   SignUpResponse,
-} from './auth.type';
+} from '../model/auth.type';
 
 export class AuthApiService {
   static async login({ email, password }: LoginRequest) {
