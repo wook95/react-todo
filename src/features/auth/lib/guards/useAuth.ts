@@ -8,11 +8,13 @@ export const useAuth = () => {
 
   const setUserStorage = ({ email, token }: User) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, token);
+    localStorage.setItem(localStorageKeys.USER_EMAIL, email);
     setUser({ email, token });
   };
 
   const removeUserStorage = () => {
     localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
+    localStorage.removeItem(localStorageKeys.USER_EMAIL);
     logout();
   };
 
