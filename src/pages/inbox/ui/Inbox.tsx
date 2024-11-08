@@ -13,5 +13,4 @@ const Inbox = () => {
 
 export default Inbox;
 
-// todo: 토글그룹 팝오버 다이얼로그 만들기
 // todo: index 정리, 파일 이름 정리

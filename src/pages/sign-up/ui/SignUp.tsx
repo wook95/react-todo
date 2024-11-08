@@ -1,5 +1,5 @@
 import { AuthApiService } from '@/features/auth/api';
-import { useAuth } from '@/features/auth/lib/guards';
+import { useAuth } from '@/features/auth/lib';
 import { SignUpRequest } from '@/features/auth/model/auth.type';
 import { AuthForm, AuthLayout, AuthLink } from '@/features/auth/ui';
 

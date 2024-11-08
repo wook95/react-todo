@@ -1,6 +1,6 @@
 import { localStorageKeys } from '@/shared/constant';
 import { Navigate } from 'react-router-dom';
-import { useAuthStore } from '../../model';
+import { useAuthStore } from '../model';
 
 interface GuardProps {
   children: React.ReactNode;

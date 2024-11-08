@@ -1,4 +1,4 @@
-import { AuthGuard, UnAuthGuard } from '@/features/auth/lib/guards';
+import { AuthGuard, UnAuthGuard } from '@/features/auth/lib';
 import Inbox from '@/pages/inbox/ui/Inbox';
 import SignIn from '@/pages/sign-in/ui/SignIn';
 import SignUp from '@/pages/sign-up/ui/SignUp';

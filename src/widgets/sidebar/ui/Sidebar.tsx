@@ -1,5 +1,6 @@
-import { useAuth } from '@/features/auth/lib/guards';
+import { useAuth } from '@/features/auth/lib';
 import { useAuthStore } from '@/features/auth/model';
+import { TodoCreatePopover } from '@/features/todo';
 import {
   ChevronDownIcon,
   PersonIcon,
