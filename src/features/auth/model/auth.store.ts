@@ -5,13 +5,13 @@ import { devtools } from 'zustand/middleware';
 interface AuthState {
   user: User | null;
   setUser: (user: User) => void;
-  logout: () => void;
+  removeUserFromStore: () => void;
 }
 
 const store: StateCreator<AuthState> = (set) => ({
   user: null,
   setUser: (user: any) => set({ user }),
-  logout: () => set({ user: null }),
+  removeUserFromStore: () => set({ user: null }),
 });
 
 export const useAuthStore =

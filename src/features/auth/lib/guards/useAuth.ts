@@ -3,7 +3,7 @@ import { User, useAuthStore } from '@features/auth/model';
 import { useNavigate } from 'react-router-dom';
 
 export const useAuth = () => {
-  const { setUser, logout } = useAuthStore((state) => state);
+  const { setUser, removeUserFromStore } = useAuthStore((state) => state);
   const navigate = useNavigate();
 
   const setUserStorage = ({ email, token }: User) => {
@@ -15,12 +15,27 @@ export const useAuth = () => {
   const removeUserStorage = () => {
     localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
     localStorage.removeItem(localStorageKeys.USER_EMAIL);
-    logout();
+    removeUserFromStore();
   };
 
   const navigateToApp = () => {
     navigate('/app/inbox');
   };
 
-  return { setUserStorage, removeUserStorage, navigateToApp };
+  const navigateToLogin = () => {
+    navigate('/auth/sign-in');
+  };
+
+  const logout = () => {
+    removeUserStorage();
+    navigateToLogin();
+  };
+
+  return {
+    setUserStorage,
+    removeUserStorage,
+    navigateToApp,
+    navigateToLogin,
+    logout,
+  };
 };
