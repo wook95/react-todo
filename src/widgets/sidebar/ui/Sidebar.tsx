@@ -16,15 +16,12 @@ export const Sidebar = () => {
   return (
     <nav className={styles.sidebarContainer}>
       <Popover.Root>
-        <Popover.Trigger asChild>
-          <button
-            className={styles.sidebarUserContainer}
-            aria-label="Update dimensions"
-          >
+        <Popover.Trigger>
+          <div className={styles.sidebarUserContainer}>
             <PersonIcon className={styles.sidebarUserIcon} />
             {user?.email}
             <ChevronDownIcon />
-          </button>
+          </div>
         </Popover.Trigger>
 
         <Popover.Portal>
@@ -34,19 +31,22 @@ export const Sidebar = () => {
             align="start"
           >
             <ul>
-              <li>
-                <button onClick={logout}>로그아웃</button>
-              </li>
+              <li onClick={logout}>로그아웃</li>
             </ul>
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
 
       <ul className={styles.menuList}>
-        <li className={styles.menuItemPlus}>
-          <PlusCircledIcon className={styles.menuItemIcon} />
-          <button>작업추가</button>
-        </li>
+        <Popover.Root>
+          <Popover.Trigger>
+            <li className={styles.menuItemPlus}>
+              <PlusCircledIcon className={styles.menuItemIcon} />
+              <span>작업추가</span>
+            </li>
+          </Popover.Trigger>
+          <TodoCreatePopover />
+        </Popover.Root>
         {/* <li>
           <button>관리함</button>
         </li> */}
