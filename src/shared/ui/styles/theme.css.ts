@@ -2,6 +2,7 @@ import { createTheme, createThemeContract } from '@vanilla-extract/css';
 
 export const colors = createThemeContract({
   grey: {
+    '000': '',
     '050': '',
     '100': '',
     '200': '',
@@ -37,12 +38,11 @@ export const colors = createThemeContract({
     '800': '',
     '900': '',
   },
-  black: '',
-  white: '',
 });
 
 export const light = createTheme(colors, {
   grey: {
+    '000': '#fff',
     '050': '#f9fafb',
     '100': '#f2f4f6',
     '200': '#e5e8eb',
@@ -78,12 +78,11 @@ export const light = createTheme(colors, {
     '800': '#bc1b2a',
     '900': '#a51926',
   },
-  black: '#000',
-  white: '#fff',
 });
 
 export const dark = createTheme(colors, {
   grey: {
+    '000': '#000',
     '050': '#202027',
     '100': '#2c2c35',
     '200': '#3c3c47',
@@ -119,6 +118,4 @@ export const dark = createTheme(colors, {
     '800': '#ffa8ad',
     '900': '#ffd1d3',
   },
-  black: '#000',
-  white: '#fff',
 });

@@ -21,7 +21,12 @@ export class TodoApiService {
   }
 
   static async getTodo(id: string) {
-    const res = await httpClient.get<Todo>(`/todos/${id}`);
+    const res = await httpClient.get<{ data: Todo }>(`/todos/${id}`);
+    return res.data.data;
+  }
+
+  static async deleteTodo(id: string) {
+    const res = await httpClient.delete(`/todos/${id}`);
     return res.data;
   }
 }

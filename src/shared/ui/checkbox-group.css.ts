@@ -41,7 +41,7 @@ export const checkboxInput = style({
     '&:hover::after': {
       content: '',
       position: 'absolute',
-      left: '6px',
+      left: '5px',
       top: '2px',
       width: '5px',
       height: '10px',
@@ -56,11 +56,11 @@ export const checkboxInput = style({
     '&:checked::after': {
       content: '',
       position: 'absolute',
-      left: '6px',
+      left: '5px',
       top: '2px',
       width: '5px',
       height: '10px',
-      border: `solid ${colors.white}`,
+      border: `solid ${colors.grey['000']}`,
       borderWidth: '0 1px 1px 0',
       transform: 'rotate(45deg)',
     },
