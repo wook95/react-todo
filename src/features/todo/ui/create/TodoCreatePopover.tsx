@@ -1,6 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import { FieldValue, useForm } from 'react-hook-form';
 import { TodoApiService } from '../../api/todo-api.service';
+import { useTodoStore } from '../../model/todo.store';
 import { CreateTodoRequest } from '../../model/todo.type';
 import * as styles from './TodoCreatePopover.css';
 
@@ -11,10 +12,12 @@ export const TodoCreatePopover = () => {
     reset,
     formState: { isValid, isSubmitting },
   } = useForm<CreateTodoRequest>();
+  const { addTodo } = useTodoStore((state) => state);
 
-  const onSubmit = handleSubmit((data: FieldValue<CreateTodoRequest>) => {
-    console.log(data);
-    TodoApiService.createTodo(data as CreateTodoRequest);
+  const onSubmit = handleSubmit(async (data: FieldValue<CreateTodoRequest>) => {
+    const todo = await TodoApiService.createTodo(data as CreateTodoRequest);
+    addTodo(todo);
+    alert('작업이 추가되었습니다.');
     reset();
   });
 

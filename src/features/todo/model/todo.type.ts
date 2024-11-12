@@ -6,6 +6,10 @@ export interface Todo {
   updatedAt: string;
 }
 
+export interface ClientTodo extends Todo {
+  isChecked: boolean;
+}
+
 export interface CreateTodoRequest {
   title: string;
   content: string;

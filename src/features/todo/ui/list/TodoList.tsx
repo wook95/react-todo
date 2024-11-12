@@ -5,18 +5,22 @@ import { useEffect, useState } from 'react';
 import { DeleteTodo } from '@features/todo/ui';
 import * as Popover from '@radix-ui/react-popover';
 import { TodoApiService } from '../../api/todo-api.service';
-import { Todo } from '../../model/todo.type';
+import { useTodoStore } from '../../model/todo.store';
 import * as styles from './TodoList.css';
 
 // TODO: 추후 엔티티로 분리 등  폴더 정리 필요
 export const TodoList = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { todos, setTodos, toggleTodo } = useTodoStore((state) => state);
+  const [isLoading, setIsLoading] = useState(false);
   const [openPopoverId, setOpenPopoverId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTodos = async () => {
+      if (todos.length > 0) {
+        return;
+      }
       setIsLoading(true);
+
       try {
         const todos = await TodoApiService.getTodos();
         setTodos(todos);
@@ -40,7 +44,10 @@ export const TodoList = () => {
           {todos?.map((todo) => {
             return (
               <CheckboxGroup.Item key={todo.id}>
-                <CheckboxGroup.Input />
+                <CheckboxGroup.Input
+                  checked={todo.isChecked}
+                  onChange={() => toggleTodo(todo.id)}
+                />
                 <CheckboxGroup.Description
                   className={styles.todoDescriptionContainer}
                 >

@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { TrashIcon } from '@radix-ui/react-icons';
 import { TodoApiService } from '../../api/todo-api.service';
+import { useTodoStore } from '../../model/todo.store';
 import * as styles from './delete-todo.css';
 
 interface DeleteTodoProps {
@@ -9,8 +10,11 @@ interface DeleteTodoProps {
 }
 
 export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
+  const { deleteTodo } = useTodoStore((state) => state);
+
   const onDelete = async () => {
     await TodoApiService.deleteTodo(todoId);
+    deleteTodo(todoId);
     onClose();
   };
 
@@ -36,16 +40,16 @@ export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
             </Dialog.Title>
             <Dialog.Description>
               <span>삭제하면 복구할 수 없습니다.</span>
-              <div className={styles.buttonWrapper}>
-                <button className={styles.deleteButton} onClick={onDelete}>
-                  삭제
-                </button>
-                <button className={styles.cancelButton} onClick={onClose}>
-                  취소
-                </button>
-              </div>
             </Dialog.Description>
-            <Dialog.Close />
+            <div className={styles.buttonWrapper}>
+              <button className={styles.deleteButton} onClick={onDelete}>
+                삭제
+              </button>
+
+              <Dialog.Close asChild>
+                <button className={styles.cancelButton}>취소</button>
+              </Dialog.Close>
+            </div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

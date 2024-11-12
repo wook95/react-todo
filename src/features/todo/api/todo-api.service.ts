@@ -1,32 +1,42 @@
 import { httpClient } from '@/shared/api';
 import { AxiosResponse } from 'axios';
 import { CreateTodoRequest, Todo } from '../model/todo.type';
+import { todoAdapter } from './todo-api.adapter';
 
 export class TodoApiService {
   static async createTodo({ title, content }: CreateTodoRequest) {
     const res = await httpClient.post<
-      Todo,
-      AxiosResponse<Todo>,
+      { data: Todo },
+      AxiosResponse<{ data: Todo }>,
       CreateTodoRequest
     >('/todos', {
       title,
       content,
     });
-    return res.data;
+
+    return todoAdapter.toClient(res?.data?.data);
   }
 
   static async getTodos() {
     const res = await httpClient.get<{ data: Todo[] }>('/todos');
-    return res.data.data;
+    return todoAdapter.toClientList(res.data.data);
   }
 
   static async getTodo(id: string) {
     const res = await httpClient.get<{ data: Todo }>(`/todos/${id}`);
-    return res.data.data;
+    return todoAdapter.toClient(res.data.data);
   }
 
   static async deleteTodo(id: string) {
     const res = await httpClient.delete(`/todos/${id}`);
     return res.data;
+  }
+
+  static async updateTodo(id: string, { title, content }: CreateTodoRequest) {
+    const res = await httpClient.put<{ data: Todo }>(`/todos/${id}`, {
+      title,
+      content,
+    });
+    return res.data.data;
   }
 }
