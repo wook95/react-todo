@@ -37,6 +37,8 @@ export const colors = createThemeContract({
     '800': '',
     '900': '',
   },
+  black: '',
+  white: '',
 });
 
 export const light = createTheme(colors, {
@@ -76,6 +78,8 @@ export const light = createTheme(colors, {
     '800': '#bc1b2a',
     '900': '#a51926',
   },
+  black: '#000',
+  white: '#fff',
 });
 
 export const dark = createTheme(colors, {
@@ -115,4 +119,6 @@ export const dark = createTheme(colors, {
     '800': '#ffa8ad',
     '900': '#ffd1d3',
   },
+  black: '#000',
+  white: '#fff',
 });
