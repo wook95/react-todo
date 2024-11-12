@@ -1,4 +1,4 @@
-import { CheckboxGroup } from '@/shared/ui';
+import { CheckboxGroup, Toast } from '@/shared/ui';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +13,7 @@ export const TodoList = () => {
   const { todos, setTodos, toggleTodo } = useTodoStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
   const [openPopoverId, setOpenPopoverId] = useState<string | null>(null);
+  const [isOpenToast, setIsOpenToast] = useState(false);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -69,7 +70,10 @@ export const TodoList = () => {
                     </Popover.Trigger>
                     <Popover.Content className={styles.contextContent}>
                       <DeleteTodo
-                        onClose={() => setOpenPopoverId(null)}
+                        onClose={() => {
+                          setOpenPopoverId(null);
+                          setIsOpenToast(true);
+                        }}
                         todoId={todo.id}
                       />
                     </Popover.Content>
@@ -80,6 +84,14 @@ export const TodoList = () => {
           })}
         </CheckboxGroup.Root>
       )}
+
+      <Toast.Root
+        open={isOpenToast}
+        onOpenChange={setIsOpenToast}
+        duration={1300}
+      >
+        <Toast.Title>작업이 추가되었습니다.</Toast.Title>
+      </Toast.Root>
     </div>
   );
 };

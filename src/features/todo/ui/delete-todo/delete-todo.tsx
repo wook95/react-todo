@@ -20,8 +20,6 @@ export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
 
   return (
     <div className={styles.deleteTodoContainer}>
-      <TrashIcon />
-
       <Dialog.Root
         onOpenChange={(open) => {
           if (!open) {
@@ -29,7 +27,8 @@ export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
           }
         }}
       >
-        <Dialog.Trigger>
+        <Dialog.Trigger className={styles.dialogTrigger}>
+          <TrashIcon />
           <span>삭제</span>
         </Dialog.Trigger>
         <Dialog.Portal>

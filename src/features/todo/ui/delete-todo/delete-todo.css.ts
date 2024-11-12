@@ -2,6 +2,10 @@ import { colors } from '@/shared/ui/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const deleteTodoContainer = style({
+  width: '100%',
+});
+
+export const dialogTrigger = style({
   display: 'flex',
   alignItems: 'center',
   gap: '4px',

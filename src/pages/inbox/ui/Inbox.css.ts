@@ -11,6 +11,7 @@ export const container = style({
 export const inboxContainer = style({
   width: '100%',
   padding: '56px 100px 84px 100px',
+  overflow: 'auto',
 });
 
 export const inboxTitle = style({
