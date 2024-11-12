@@ -24,7 +24,6 @@ export const AuthForm = ({ title, onClick }: AuthFormProps) => {
     reset,
   } = useForm<FormData>();
   const onSubmit = (data: FieldValue<FormData>) => {
-    console.log(data);
     onClick(data as LoginRequest);
     reset();
   };

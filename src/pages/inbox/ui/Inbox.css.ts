@@ -7,3 +7,13 @@ export const container = style({
   height: '100%',
   overflow: 'hidden',
 });
+
+export const inboxContainer = style({
+  width: '100%',
+  padding: '56px 100px 84px 100px',
+});
+
+export const inboxTitle = style({
+  fontSize: '26px',
+  fontWeight: '700',
+});

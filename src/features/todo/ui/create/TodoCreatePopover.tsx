@@ -23,7 +23,7 @@ export const TodoCreatePopover = () => {
       <Popover.Content
         className={styles.popoverContent}
         sideOffset={5}
-        align="end"
+        align="start"
       >
         <form className={styles.form} onSubmit={onSubmit}>
           <input type="text" placeholder="작업 이름" {...register('title')} />

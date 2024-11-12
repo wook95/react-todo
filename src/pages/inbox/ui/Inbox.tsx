@@ -1,3 +1,4 @@
+import { TodoList } from '@/features/todo';
 import { Sidebar } from '@/widgets/sidebar';
 import * as styles from '@pages/inbox/ui/Inbox.css';
 
@@ -6,7 +7,10 @@ const Inbox = () => {
     <div className={styles.container}>
       <Sidebar />
 
-      <div>메일함</div>
+      <div className={styles.inboxContainer}>
+        <h2 className={styles.inboxTitle}>Inbox</h2>
+        <TodoList />
+      </div>
     </div>
   );
 };
