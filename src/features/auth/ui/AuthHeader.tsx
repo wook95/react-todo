@@ -9,7 +9,6 @@ export const AuthHeader = () => {
       {/* <div className="auth-header__logo"> */}
       {/* <img src="/assets/images/logo.png" alt="logo" /> */}
       {/* </div> */}
-      그래도 해야지 어떡해
     </header>
   );
 };
