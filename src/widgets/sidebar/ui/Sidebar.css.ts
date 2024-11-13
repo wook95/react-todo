@@ -60,7 +60,6 @@ export const menuItem = style({
   display: 'flex',
   gap: '4px',
   width: '100%',
-  padding: '8px 4px',
   borderRadius: '4px',
   cursor: 'pointer',
 
@@ -73,14 +72,14 @@ export const menuItem = style({
   },
 });
 
-export const menuItemPlus = style([
-  menuItem,
-  {
-    color: colors.red[700],
-  },
-]);
+// export const menuItemPlus = style([
+//   menuItem,
+//   {
+//     color: colors.red[700],
+//   },
+// ]);
 
-export const menuItemIcon = style({
-  width: '16px',
-  height: '16px',
-});
+// export const menuItemIcon = style({
+//   width: '16px',
+//   height: '16px',
+// });
