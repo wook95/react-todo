@@ -1,8 +1,14 @@
 import { CheckboxGroup, Toast } from '@/shared/ui';
-import { DotsHorizontalIcon, Pencil1Icon } from '@radix-ui/react-icons';
+import {
+  Cross1Icon,
+  DotsHorizontalIcon,
+  Pencil1Icon,
+} from '@radix-ui/react-icons';
 import { useEffect, useState } from 'react';
 
+import { formatDate } from '@/shared/lib';
 import { DeleteTodo, TodoEditForm } from '@features/todo/ui';
+import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
 import { TodoApiService } from '../../api/todo-api.service';
 import { useTodoStore } from '../../model/todo.store';
@@ -66,21 +72,22 @@ export const TodoList = () => {
               }
 
               return (
-                <CheckboxGroup.Item key={todo.id}>
-                  <CheckboxGroup.Input
-                    checked={todo.isChecked}
-                    onChange={() => toggleTodo(todo.id)}
-                  />
-                  <CheckboxGroup.Description
-                    className={styles.todoDescriptionContainer}
-                  >
-                    <div className={styles.todoDescriptionContentWrapper}>
-                      <div>{todo.title}</div>
-                      <div className={styles.todoDescriptionContent}>
-                        {todo.content}
-                      </div>
-                    </div>
-
+                <Dialog.Root>
+                  <CheckboxGroup.Item key={todo.id}>
+                    <CheckboxGroup.Input
+                      checked={todo.isChecked}
+                      onChange={() => toggleTodo(todo.id)}
+                    />
+                    <Dialog.Trigger className={styles.todoDescriptionContainer}>
+                      <CheckboxGroup.Description>
+                        <div className={styles.todoDescriptionContentWrapper}>
+                          <div>{todo.title}</div>
+                          <div className={styles.todoDescriptionContent}>
+                            {todo.content}
+                          </div>
+                        </div>
+                      </CheckboxGroup.Description>
+                    </Dialog.Trigger>
                     <div className={styles.contextButtonContainer}>
                       <button
                         className={styles.contextButton}
@@ -109,8 +116,57 @@ export const TodoList = () => {
                         </Popover.Content>
                       </Popover.Root>
                     </div>
-                  </CheckboxGroup.Description>
-                </CheckboxGroup.Item>
+                  </CheckboxGroup.Item>
+
+                  <Dialog.Portal>
+                    <Dialog.Overlay className={styles.dialogOverlay} />
+                    <Dialog.Content className={styles.dialogContentContainer}>
+                      <div className={styles.dialogContent}>
+                        <div className={styles.dialogHeader}>
+                          <Dialog.Close className={styles.dialogCloseButton}>
+                            <Cross1Icon />
+                          </Dialog.Close>
+                        </div>
+
+                        <div className={styles.dialogContentBody}>
+                          <div className={styles.dialogContentBodyContent}>
+                            <CheckboxGroup.Input
+                              className={styles.detailCheckbox}
+                              checked={todo.isChecked}
+                              onChange={() => toggleTodo(todo.id)}
+                            />
+                            <div>
+                              <Dialog.Title className={styles.dialogTitle}>
+                                {todo.title}
+                              </Dialog.Title>
+                              <Dialog.Description
+                                className={styles.dialogDescription}
+                              >
+                                {todo.content}
+                              </Dialog.Description>
+                            </div>
+                          </div>
+
+                          <div className={styles.dialogContentBodySideBar}>
+                            <div className={styles.sideBarSection}>
+                              <div className={styles.sideBarTitle}>생성일</div>
+                              <div className={styles.sideBarContent}>
+                                {formatDate(todo.createdAt)}
+                              </div>
+                            </div>
+
+                            <div className={styles.sideBarSection}>
+                              <div className={styles.sideBarTitle}>수정일</div>
+                              <div className={styles.sideBarContent}>
+                                {formatDate(todo.updatedAt)}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Dialog.Content>
+                  </Dialog.Portal>
+                </Dialog.Root>
               );
             })
           ) : (

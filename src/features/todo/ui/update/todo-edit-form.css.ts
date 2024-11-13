@@ -5,8 +5,15 @@ export const form = style({
   display: 'flex',
   flexDirection: 'column',
   padding: '16px',
+  margin: '16px 0',
   borderRadius: '8px',
-  border: `1px solid ${colors.grey['200']}`,
+  border: `1px solid ${colors.grey['400']}`,
+
+  selectors: {
+    '&:not(:focus-within)': {
+      border: `1px solid ${colors.grey['200']}`,
+    },
+  },
 });
 
 export const titleInput = style({

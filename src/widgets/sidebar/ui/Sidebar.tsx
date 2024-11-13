@@ -27,7 +27,11 @@ export const Sidebar = () => {
             align="start"
           >
             <ul>
-              <li onClick={logout}>로그아웃</li>
+              <li>
+                <button className={styles.popoverButton} onClick={logout}>
+                  로그아웃
+                </button>
+              </li>
             </ul>
           </Popover.Content>
         </Popover.Portal>

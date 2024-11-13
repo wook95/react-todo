@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { CreateTodoRequest } from '../../model/todo.type';
 import * as styles from './todo-edit-form.css';
@@ -27,6 +28,11 @@ export const TodoEditForm = ({
       content: todo.content,
     },
   });
+  const titleInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    titleInputRef.current?.focus();
+  }, []);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -35,6 +41,7 @@ export const TodoEditForm = ({
         type="text"
         placeholder="작업 이름"
         {...register('title', { required: true })}
+        ref={titleInputRef}
       />
       <input
         className={styles.contentInput}

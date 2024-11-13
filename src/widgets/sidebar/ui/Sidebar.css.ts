@@ -72,14 +72,6 @@ export const menuItem = style({
   },
 });
 
-// export const menuItemPlus = style([
-//   menuItem,
-//   {
-//     color: colors.red[700],
-//   },
-// ]);
-
-// export const menuItemIcon = style({
-//   width: '16px',
-//   height: '16px',
-// });
+export const popoverButton = style({
+  width: '100%',
+});
