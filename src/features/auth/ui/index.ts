@@ -1,3 +1,3 @@
-export * from '@features/auth/ui/AuthForm';
-export * from '@features/auth/ui/AuthLayout';
-export * from '@features/auth/ui/AuthLink';
+export * from '@/features/auth/ui/auth-form/auth-form';
+export * from '@/features/auth/ui/auth-layout/auth-layout';
+export * from '@/features/auth/ui/auth-link/auth-link';

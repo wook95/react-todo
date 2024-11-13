@@ -1,8 +1,8 @@
 import { AuthGuard, UnAuthGuard } from '@/features/auth/lib';
 import { NotFound } from '@/pages/404';
-import Inbox from '@/pages/inbox/ui/Inbox';
-import SignIn from '@/pages/sign-in/ui/SignIn';
-import SignUp from '@/pages/sign-up/ui/SignUp';
+import Inbox from '@/pages/inbox/ui/inbox';
+import SignIn from '@/pages/sign-in/ui/sign-in';
+import SignUp from '@/pages/sign-up/ui/sign-up';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 
 /**

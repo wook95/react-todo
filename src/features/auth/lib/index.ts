@@ -1,3 +1,3 @@
-export * from './AuthGuard';
-export * from './UnAuthGuard';
-export * from './useAuth';
+export * from './auth-guard';
+export * from './un-auth-guard';
+export * from './use-auth';

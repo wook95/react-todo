@@ -1,5 +1,5 @@
-import * as styles from '@features/auth/ui/AuthLink.css';
 import { Link } from 'react-router-dom';
+import * as styles from './auth-link.css';
 
 interface AuthLinkProps {
   preText: string;

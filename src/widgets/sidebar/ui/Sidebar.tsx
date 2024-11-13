@@ -1,9 +1,9 @@
 import { useAuth } from '@/features/auth/lib';
 import { useAuthStore } from '@/features/auth/model';
-import { TodoCreatePopover } from '@/features/todo';
+import { TodoCreatePopover } from '@/features/todo/ui';
 import { ChevronDownIcon, PersonIcon } from '@radix-ui/react-icons';
 import * as Popover from '@radix-ui/react-popover';
-import * as styles from './Sidebar.css';
+import * as styles from './sidebar.css';
 
 export const Sidebar = () => {
   const user = useAuthStore((state) => state.user);

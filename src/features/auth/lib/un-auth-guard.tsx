@@ -1,12 +1,12 @@
+import { useAuthStore } from '@/features/auth/model';
 import { localStorageKeys } from '@/shared/constant';
 import { Navigate } from 'react-router-dom';
-import { useAuthStore } from '../model';
 
 interface GuardProps {
   children: React.ReactNode;
 }
 
-export const AuthGuard = ({ children }: GuardProps) => {
+export const UnAuthGuard = ({ children }: GuardProps) => {
   const { user, setUser } = useAuthStore();
 
   if (!user) {
@@ -15,11 +15,11 @@ export const AuthGuard = ({ children }: GuardProps) => {
 
     if (email && token) {
       setUser({ email, token });
-      return <>{children}</>;
+      return <Navigate to="/app/inbox" replace />;
     } else {
-      return <Navigate to="/" replace />;
+      return <>{children}</>;
     }
   }
 
-  return <>{children}</>;
+  return <Navigate to="/app/inbox" replace />;
 };

@@ -1,7 +1,7 @@
+import { TodoApiService } from '@features/todo/api';
+import { useTodoStore } from '@features/todo/model/todo.store';
 import * as Dialog from '@radix-ui/react-dialog';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { TodoApiService } from '../../api/todo-api.service';
-import { useTodoStore } from '../../model/todo.store';
 import * as styles from './delete-todo.css';
 
 interface DeleteTodoProps {

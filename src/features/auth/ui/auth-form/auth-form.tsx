@@ -1,6 +1,6 @@
-import * as styles from '@features/auth/ui/AuthForm.css';
+import { LoginRequest, SignUpRequest } from '@/features/auth/model/auth.type';
+import * as styles from '@/features/auth/ui/auth-form/auth-form.css';
 import { FieldValue, useForm } from 'react-hook-form';
-import { LoginRequest, SignUpRequest } from '../model/auth.type';
 
 interface AuthFormProps {
   title: string;

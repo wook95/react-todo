@@ -1,5 +1,5 @@
+import { localStorageKeys } from '@/shared/constant';
 import axios from 'axios';
-import { localStorageKeys } from '../constant';
 
 export const httpClient = axios.create({
   baseURL: 'http://localhost:8080',

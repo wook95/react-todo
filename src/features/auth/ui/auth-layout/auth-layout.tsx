@@ -1,5 +1,5 @@
-import * as styles from '@features/auth/ui/AuthLayout.css';
-import { AuthHeader } from './AuthHeader';
+import * as styles from '@features/auth/ui/auth-layout/auth-layout.css';
+import { AuthHeader } from './auth-header';
 
 interface AuthLayoutProps {
   children: React.ReactNode;

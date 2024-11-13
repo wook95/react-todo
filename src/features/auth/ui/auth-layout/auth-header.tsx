@@ -1,4 +1,4 @@
-import * as styles from '@features/auth/ui/AuthHeader.css';
+import * as styles from '@features/auth/ui/auth-layout/auth-header.css';
 
 /*
  ** @TODO 로고 삽입

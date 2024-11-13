@@ -1,11 +1,11 @@
-import { httpClient } from '@/shared/api';
-import { AxiosResponse } from 'axios';
 import {
   LoginRequest,
   LoginResponse,
   SignUpRequest,
   SignUpResponse,
-} from '../model/auth.type';
+} from '@/features/auth/model/auth.type';
+import { httpClient } from '@/shared/api';
+import { AxiosResponse } from 'axios';
 
 export class AuthApiService {
   static async login({ email, password }: LoginRequest) {

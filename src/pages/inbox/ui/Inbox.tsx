@@ -1,6 +1,6 @@
-import { TodoList } from '@/features/todo';
-import { Sidebar } from '@/widgets/sidebar';
-import * as styles from '@pages/inbox/ui/Inbox.css';
+import { TodoList } from '@features/todo/ui';
+import { Sidebar } from '@widgets/sidebar/ui';
+import * as styles from './inbox.css';
 
 const Inbox = () => {
   return (

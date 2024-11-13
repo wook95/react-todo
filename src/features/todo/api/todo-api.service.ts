@@ -1,6 +1,6 @@
+import { CreateTodoRequest, Todo } from '@/features/todo/model/todo.type';
 import { httpClient } from '@/shared/api';
 import { AxiosResponse } from 'axios';
-import { CreateTodoRequest, Todo } from '../model/todo.type';
 import { todoAdapter } from './todo-api.adapter';
 
 export class TodoApiService {

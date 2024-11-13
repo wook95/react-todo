@@ -1,12 +1,12 @@
 import { Toast } from '@/shared/ui';
+import { TodoApiService } from '@features/todo/api';
+import { useTodoStore } from '@features/todo/model/todo.store';
+import { CreateTodoRequest } from '@features/todo/model/todo.type';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 import * as Popover from '@radix-ui/react-popover';
 import { useState } from 'react';
 import { FieldValue, useForm } from 'react-hook-form';
-import { TodoApiService } from '../../api/todo-api.service';
-import { useTodoStore } from '../../model/todo.store';
-import { CreateTodoRequest } from '../../model/todo.type';
-import * as styles from './TodoCreatePopover.css';
+import * as styles from './todo-create-popover.css';
 
 export const TodoCreatePopover = () => {
   const {

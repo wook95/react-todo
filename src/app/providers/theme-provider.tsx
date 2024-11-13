@@ -1,7 +1,7 @@
-import { light } from '@/shared/ui/styles/theme.css';
+import { light } from '@/shared/ui';
 import { ReactNode, useEffect } from 'react';
 
-export const GlobalThemeProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     document.body.classList.add(light);
   }, []);

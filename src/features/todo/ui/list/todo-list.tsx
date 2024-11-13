@@ -7,13 +7,13 @@ import {
 import { useEffect, useState } from 'react';
 
 import { formatDate } from '@/shared/lib';
+import { TodoApiService } from '@features/todo/api';
+import { useTodoStore } from '@features/todo/model/todo.store';
+import { CreateTodoRequest } from '@features/todo/model/todo.type';
 import { DeleteTodo, TodoEditForm } from '@features/todo/ui';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Popover from '@radix-ui/react-popover';
-import { TodoApiService } from '../../api/todo-api.service';
-import { useTodoStore } from '../../model/todo.store';
-import { CreateTodoRequest } from '../../model/todo.type';
-import * as styles from './TodoList.css';
+import * as styles from './todo-list.css';
 
 // TODO: 추후 엔티티로 분리 등  폴더 정리 필요
 export const TodoList = () => {

@@ -1,6 +1,6 @@
+import { CreateTodoRequest } from '@/features/todo/model/todo.type';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { CreateTodoRequest } from '../../model/todo.type';
 import * as styles from './todo-edit-form.css';
 
 interface TodoEditFormProps {
