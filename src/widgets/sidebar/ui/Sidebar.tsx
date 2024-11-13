@@ -1,41 +1,11 @@
-import { useAuth } from '@/features/auth/lib';
-import { useAuthStore } from '@/features/auth/model';
+import { UserContextMenu } from '@/features/auth/ui';
 import { TodoCreatePopover } from '@/features/todo/ui';
-import { ChevronDownIcon, PersonIcon } from '@radix-ui/react-icons';
-import * as Popover from '@radix-ui/react-popover';
 import * as styles from './sidebar.css';
 
 export const Sidebar = () => {
-  const user = useAuthStore((state) => state.user);
-  const { logout } = useAuth();
-
   return (
     <nav className={styles.sidebarContainer}>
-      <Popover.Root>
-        <Popover.Trigger>
-          <div className={styles.sidebarUserContainer}>
-            <PersonIcon className={styles.sidebarUserIcon} />
-            {user?.email}
-            <ChevronDownIcon />
-          </div>
-        </Popover.Trigger>
-
-        <Popover.Portal>
-          <Popover.Content
-            className={styles.popoverContent}
-            sideOffset={5}
-            align="start"
-          >
-            <ul>
-              <li>
-                <button className={styles.popoverButton} onClick={logout}>
-                  로그아웃
-                </button>
-              </li>
-            </ul>
-          </Popover.Content>
-        </Popover.Portal>
-      </Popover.Root>
+      <UserContextMenu />
 
       <ul className={styles.menuList}>
         <li className={styles.menuItem}>
