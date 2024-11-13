@@ -1,6 +1,6 @@
 import { create, StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { ClientTodo, CreateTodoRequest } from './todo.type';
+import { ClientTodo, Todo } from './todo.type';
 
 interface TodoStore {
   todos: ClientTodo[];
@@ -8,7 +8,7 @@ interface TodoStore {
   addTodo: (todo: ClientTodo) => void;
   toggleTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
-  updateTodo: (id: string, { title, content }: CreateTodoRequest) => void;
+  updateTodo: (id: string, todo: Todo) => void;
 }
 
 const store: StateCreator<TodoStore> = (set) => ({
@@ -25,10 +25,10 @@ const store: StateCreator<TodoStore> = (set) => ({
     set((state) => ({
       todos: state.todos.filter((todo) => todo.id !== id),
     })),
-  updateTodo: (id, { title, content }) =>
+  updateTodo: (id, { title, content, updatedAt }) =>
     set((state) => ({
       todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, title, content } : todo,
+        todo.id === id ? { ...todo, title, content, updatedAt } : todo,
       ),
     })),
 });
