@@ -1,5 +1,5 @@
+import { useTodoStore } from '@entities/todo/model';
 import { TodoApiService } from '@features/todo/api';
-import { useTodoStore } from '@features/todo/model/todo.store';
 import * as Dialog from '@radix-ui/react-dialog';
 import { TrashIcon } from '@radix-ui/react-icons';
 import * as styles from './delete-todo.css';

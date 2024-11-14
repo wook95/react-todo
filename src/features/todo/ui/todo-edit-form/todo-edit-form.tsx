@@ -1,4 +1,4 @@
-import { CreateTodoRequest } from '@/features/todo/model/todo.type';
+import { CreateTodoRequest } from '@entities/todo/model';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as styles from './todo-edit-form.css';

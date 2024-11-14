@@ -14,7 +14,8 @@
       "@pages/*": ["./pages/*"],
       "@features/*": ["./features/*"],
       "@widgets/*": ["./widgets/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@entities/*": ["./entities/*"]
     },
 
     /* Bundler mode */

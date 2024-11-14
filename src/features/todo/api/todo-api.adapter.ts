@@ -1,4 +1,4 @@
-import { Todo as ApiTodo, ClientTodo } from '@/features/todo/model/todo.type';
+import { Todo as ApiTodo, ClientTodo } from '@entities/todo/model';
 
 export const todoAdapter = {
   toClient(apiTodo: ApiTodo): ClientTodo {

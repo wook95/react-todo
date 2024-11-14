@@ -1,5 +1,5 @@
-import { TodoList } from '@features/todo/ui';
 import { Sidebar } from '@widgets/sidebar/ui';
+import { TodoList } from '@widgets/todo-list/ui';
 import * as styles from './inbox.css';
 
 const Inbox = () => {
@@ -16,5 +16,3 @@ const Inbox = () => {
 };
 
 export default Inbox;
-
-// todo: index 정리, 파일 이름 정리
