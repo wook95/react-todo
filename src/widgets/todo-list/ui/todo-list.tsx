@@ -5,51 +5,64 @@ import { TodoItem } from '@/entities/todo/ui';
 import { TodoDetailDialog, TodoEditForm } from '@/features/todo/ui';
 import { CreateTodoRequest, useTodoStore } from '@entities/todo/model';
 import { TodoApiService } from '@features/todo/api';
+import { useTodoFilters } from '@features/todo/lib';
+import { TodoFilters } from '@features/todo/ui';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as styles from './todo-list.css.ts';
 
-// @TODO: 추후 엔티티로 분리 등  폴더 정리 필요
 export const TodoList = () => {
   const { todos, setTodos, toggleTodo, updateTodo } = useTodoStore(
     (state) => state,
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [editingId, setEditingId] = useState<string | null>(null); // 수정 중인 아이템 ID
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const { filters } = useTodoFilters();
 
   const editTodo = async (id: string, updatedTodo: CreateTodoRequest) => {
     const updatedTodos = await TodoApiService.updateTodo(id, updatedTodo);
     updateTodo(id, updatedTodos);
   };
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      if (todos.length > 0) {
-        return;
-      }
-      setIsLoading(true);
+  const fetchTodos = async () => {
+    setIsLoading(true);
 
-      try {
-        const todos = await TodoApiService.getTodos();
-        setTodos(todos);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    try {
+      const serverTodos = await TodoApiService.getTodos(filters);
+      const mergedTodos = serverTodos.map((serverTodo) => ({
+        ...serverTodo,
+        isChecked: Boolean(
+          todos.find((todo) => todo.id === serverTodo.id)?.isChecked,
+        ),
+      }));
+
+      setTodos(mergedTodos);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [filters]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (!todos?.length) {
-    return <div>작업을 추가하세요</div>;
+    return (
+      <div>
+        <TodoFilters />
+        <div>작업을 추가하세요</div>
+      </div>
+    );
   }
 
   return (
     <div>
+      <TodoFilters />
       <CheckboxGroup.Root>
         {todos?.map((todo) => {
           if (editingId === todo.id) {

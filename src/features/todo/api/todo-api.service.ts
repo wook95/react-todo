@@ -1,4 +1,4 @@
-import { CreateTodoRequest, Todo } from '@entities/todo/model';
+import { CreateTodoRequest, Todo, TodoFilters } from '@entities/todo/model';
 import { httpClient } from '@shared/api';
 import { AxiosResponse } from 'axios';
 import { todoAdapter } from './todo-api.adapter';
@@ -17,8 +17,18 @@ export class TodoApiService {
     return todoAdapter.toClient(res?.data?.data);
   }
 
-  static async getTodos() {
-    const res = await httpClient.get<{ data: Todo[] }>('/todos');
+  static async getTodos(filters: TodoFilters) {
+    const params = new URLSearchParams();
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined) {
+        params.set(key, String(value));
+      }
+    });
+
+    const res = await httpClient.get<{ data: Todo[] }>(
+      `/todos?${params.toString()}`,
+    );
     return todoAdapter.toClientList(res.data.data);
   }
 

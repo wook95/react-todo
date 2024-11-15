@@ -14,3 +14,11 @@ export interface CreateTodoRequest {
   title: string;
   content: string;
 }
+
+export interface TodoFilters {
+  sort?: 'createdAt' | 'updatedAt' | 'priority';
+  order?: 'asc' | 'desc';
+  priorityFilter?: 'urgent' | 'normal' | 'low';
+  keyword?: string;
+  countOnly?: boolean;
+}
