@@ -1,2 +1,2 @@
-export * from '@features/auth/model/auth.store';
-export * from '@features/auth/model/auth.type';
+export * from './auth.store';
+export * from './auth.type';

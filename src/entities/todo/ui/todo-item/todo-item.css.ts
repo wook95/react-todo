@@ -1,12 +1,6 @@
 import { colors } from '@/shared/ui/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
-export const todoDescriptionContainer = style({
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
-});
-
 export const todoDescriptionContentWrapper = style({
   display: 'flex',
   flexDirection: 'column',

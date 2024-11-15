@@ -5,9 +5,6 @@ import SignIn from '@/pages/sign-in/ui/sign-in';
 import SignUp from '@/pages/sign-up/ui/sign-up';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 
-/**
- * @Todo Add error boundary
- */
 export const router = createBrowserRouter([
   {
     errorElement: <NotFound />,

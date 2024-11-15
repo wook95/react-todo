@@ -28,6 +28,7 @@ export const checkboxItem = style({
 });
 
 export const checkboxInput = style({
+  flexShrink: 0,
   appearance: 'none',
   position: 'relative',
   width: '18px',
