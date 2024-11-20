@@ -1,10 +1,11 @@
+import { httpClient } from '@/shared/api';
 import {
+  authResponseSchema,
   LoginRequest,
   LoginResponse,
   SignUpRequest,
   SignUpResponse,
-} from '@/features/auth/model/auth.type';
-import { httpClient } from '@/shared/api';
+} from '@entities/auth/model';
 import { AxiosResponse } from 'axios';
 
 export class AuthApiService {
@@ -17,7 +18,8 @@ export class AuthApiService {
       email,
       password,
     });
-    return res.data;
+
+    return authResponseSchema.parse(res?.data);
   }
 
   static async signUp({ email, password }: SignUpRequest) {
@@ -29,6 +31,6 @@ export class AuthApiService {
       email,
       password,
     });
-    return res.data;
+    return authResponseSchema.parse(res?.data);
   }
 }

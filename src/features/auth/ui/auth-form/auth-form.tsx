@@ -1,4 +1,9 @@
-import { LoginRequest, SignUpRequest } from '@features/auth/model/auth.type';
+import {
+  LoginRequest,
+  SignUpRequest,
+  authRequestSchema,
+} from '@entities/auth/model';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValue, useForm } from 'react-hook-form';
 import * as styles from './auth-form.css';
 
@@ -12,17 +17,15 @@ interface FormData {
   password: string;
 }
 
-/*
- ** @TODO zod를 통해 유효성 검사
- */
-
 export const AuthForm = ({ title, onClick }: AuthFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
     reset,
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(authRequestSchema),
+  });
   const onSubmit = (data: FieldValue<FormData>) => {
     onClick(data as LoginRequest);
     reset();
@@ -43,10 +46,7 @@ export const AuthForm = ({ title, onClick }: AuthFormProps) => {
             className={styles.input}
             type="email"
             placeholder={emailPlaceholder}
-            {...register('email', {
-              required: true,
-              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            })}
+            {...register('email')}
           />
         </label>
         <label className={styles.label} htmlFor="password">
@@ -56,10 +56,7 @@ export const AuthForm = ({ title, onClick }: AuthFormProps) => {
             className={styles.input}
             type="password"
             placeholder={passwordPlaceholder}
-            {...register('password', {
-              required: true,
-              minLength: 8,
-            })}
+            {...register('password')}
           />
         </label>
         <button disabled={!isValid || isSubmitting} className={styles.button}>

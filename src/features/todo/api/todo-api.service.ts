@@ -1,4 +1,9 @@
-import { CreateTodoRequest, Todo, TodoFilters } from '@entities/todo/model';
+import {
+  CreateTodoRequest,
+  Todo,
+  TodoFilters,
+  todoSchema,
+} from '@entities/todo/model';
 import { httpClient } from '@shared/api';
 import { AxiosResponse } from 'axios';
 import { todoAdapter } from './todo-api.adapter';
@@ -14,7 +19,9 @@ export class TodoApiService {
       content,
     });
 
-    return todoAdapter.toClient(res?.data?.data);
+    const validatedData = todoSchema.parse(res?.data?.data);
+
+    return todoAdapter.toClient(validatedData);
   }
 
   static async getTodos(filters: TodoFilters) {
@@ -29,12 +36,16 @@ export class TodoApiService {
     const res = await httpClient.get<{ data: Todo[] }>(
       `/todos?${params.toString()}`,
     );
-    return todoAdapter.toClientList(res.data.data);
+    const validatedData = todoSchema.array().parse(res?.data?.data);
+
+    return todoAdapter.toClientList(validatedData);
   }
 
   static async getTodo(id: string) {
     const res = await httpClient.get<{ data: Todo }>(`/todos/${id}`);
-    return todoAdapter.toClient(res.data.data);
+    const validatedData = todoSchema.parse(res?.data?.data);
+
+    return todoAdapter.toClient(validatedData);
   }
 
   static async deleteTodo(id: string) {
@@ -47,6 +58,6 @@ export class TodoApiService {
       title,
       content,
     });
-    return res.data.data;
+    return todoSchema.parse(res?.data?.data);
   }
 }

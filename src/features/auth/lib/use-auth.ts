@@ -1,5 +1,5 @@
 import { localStorageKeys } from '@/shared/constant';
-import { User, useAuthStore } from '@features/auth/model';
+import { User, useAuthStore } from '@entities/auth/model';
 import { useNavigate } from 'react-router-dom';
 
 export const useAuth = () => {

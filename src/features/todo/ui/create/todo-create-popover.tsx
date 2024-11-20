@@ -1,5 +1,10 @@
-import { CreateTodoRequest, useTodoStore } from '@entities/todo/model';
+import {
+  CreateTodoRequest,
+  createTodoSchema,
+  useTodoStore,
+} from '@entities/todo/model';
 import { TodoApiService } from '@features/todo/api';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 import * as Popover from '@radix-ui/react-popover';
 import { Toast } from '@shared/ui';
@@ -12,8 +17,14 @@ export const TodoCreatePopover = () => {
     register,
     handleSubmit,
     reset,
-    formState: { isValid, isSubmitting },
-  } = useForm<CreateTodoRequest>();
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<CreateTodoRequest>({
+    resolver: zodResolver(createTodoSchema),
+    defaultValues: {
+      title: '',
+      content: '',
+    },
+  });
   const { addTodo } = useTodoStore((state) => state);
   const [isOpenToast, setIsOpenToast] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -54,14 +65,24 @@ export const TodoCreatePopover = () => {
                 className={styles.titleInput}
                 type="text"
                 placeholder="작업 이름"
-                {...register('title', { required: true })}
+                {...register('title')}
               />
+              {errors.title && (
+                <span className={styles.errorMessage}>
+                  {errors.title.message}
+                </span>
+              )}
               <input
                 className={styles.contentInput}
                 type="text"
                 placeholder="설명"
                 {...register('content')}
               />
+              {errors.content && (
+                <span className={styles.errorMessage}>
+                  {errors.content.message}
+                </span>
+              )}
               <div className={styles.submitButtonContainer}>
                 <Popover.Close className={styles.cancelButton}>
                   취소
@@ -69,7 +90,7 @@ export const TodoCreatePopover = () => {
                 <button
                   className={styles.submitButton}
                   type="submit"
-                  disabled={!isValid || isSubmitting}
+                  disabled={isSubmitting || !isValid}
                 >
                   작업 추가
                 </button>

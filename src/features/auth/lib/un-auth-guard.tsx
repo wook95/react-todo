@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/features/auth/model';
-import { localStorageKeys } from '@/shared/constant';
+import { useAuthStore } from '@entities/auth/model';
+import { localStorageKeys } from '@shared/constant';
 import { Navigate } from 'react-router-dom';
 
 interface GuardProps {

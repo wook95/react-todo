@@ -101,3 +101,7 @@ export const menuItemIcon = style({
   width: '16px',
   height: '16px',
 });
+
+export const errorMessage = style({
+  color: colors.red['600'],
+});

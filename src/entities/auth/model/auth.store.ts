@@ -1,4 +1,4 @@
-import { User } from '@features/auth/model';
+import { User } from '@entities/auth/model';
 import { create, StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
 

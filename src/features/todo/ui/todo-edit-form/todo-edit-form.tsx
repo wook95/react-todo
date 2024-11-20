@@ -1,4 +1,5 @@
-import { CreateTodoRequest } from '@entities/todo/model';
+import { CreateTodoRequest, createTodoSchema } from '@entities/todo/model';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as styles from './todo-edit-form.css';
@@ -24,6 +25,7 @@ export const TodoEditForm = ({
     setFocus,
     formState: { isValid, isSubmitting, isDirty },
   } = useForm<CreateTodoRequest>({
+    resolver: zodResolver(createTodoSchema),
     defaultValues: {
       title: todo.title,
       content: todo.content,
@@ -40,7 +42,7 @@ export const TodoEditForm = ({
         className={styles.titleInput}
         type="text"
         placeholder="작업 이름"
-        {...register('title', { required: true })}
+        {...register('title')}
       />
       <input
         className={styles.contentInput}
