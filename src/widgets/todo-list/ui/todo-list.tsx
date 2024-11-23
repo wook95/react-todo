@@ -1,51 +1,51 @@
 import { CheckboxGroup } from '@/shared/ui';
 import { useEffect, useState } from 'react';
 
+import { todoMutations, todoQueries } from '@/entities/todo/api';
 import { TodoItem } from '@/entities/todo/ui';
 import { TodoDetailDialog, TodoEditForm } from '@/features/todo/ui';
-import { CreateTodoRequest, useTodoStore } from '@entities/todo/model';
-import { TodoApiService } from '@features/todo/api';
+import { Todo, useTodoStore } from '@entities/todo/model';
 import { useTodoFilters } from '@features/todo/lib';
 import { TodoFilters } from '@features/todo/ui';
 import * as Dialog from '@radix-ui/react-dialog';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as styles from './todo-list.css.ts';
 
 export const TodoList = () => {
+  const queryClient = useQueryClient();
   const { todos, setTodos, toggleTodo, updateTodo } = useTodoStore(
     (state) => state,
   );
-  const [isLoading, setIsLoading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const { filters } = useTodoFilters();
+  const { data, isLoading } = useQuery({
+    ...todoQueries.list(filters),
+  });
 
-  const editTodo = async (id: string, updatedTodo: CreateTodoRequest) => {
-    const updatedTodos = await TodoApiService.updateTodo(id, updatedTodo);
-    updateTodo(id, updatedTodos);
-  };
-
-  const fetchTodos = async () => {
-    setIsLoading(true);
-
-    try {
-      const serverTodos = await TodoApiService.getTodos(filters);
-      const mergedTodos = serverTodos.map((serverTodo) => ({
-        ...serverTodo,
-        isChecked: Boolean(
-          todos.find((todo) => todo.id === serverTodo.id)?.isChecked,
-        ),
-      }));
-
-      setTodos(mergedTodos);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { mutate } = useMutation({
+    ...todoMutations.update(),
+    onSuccess: (updatedTodo) => {
+      updateTodo(updatedTodo.id, updatedTodo);
+      queryClient.invalidateQueries({
+        queryKey: todoQueries.lists(),
+      });
+      queryClient.setQueryData(todoQueries.lists(), (old: Todo[] = []) =>
+        old.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)),
+      );
+    },
+  });
 
   useEffect(() => {
-    fetchTodos();
-  }, [filters]);
+    if (data) {
+      const mergedTodos = data.map((serverTodo) => ({
+        ...serverTodo,
+        isChecked: Boolean(
+          todos.find((t) => t.id === serverTodo.id)?.isChecked,
+        ),
+      }));
+      setTodos(mergedTodos);
+    }
+  }, [data]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -71,7 +71,7 @@ export const TodoList = () => {
                 key={todo.id}
                 todo={todo}
                 onSubmit={(updatedTodo) => {
-                  editTodo(todo.id, updatedTodo);
+                  mutate({ id: todo.id, data: updatedTodo });
                   setEditingId(null);
                 }}
                 onCancel={() => setEditingId(null)}

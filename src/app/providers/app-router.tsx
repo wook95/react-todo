@@ -3,7 +3,7 @@ import { NotFound } from '@/pages/404';
 import Inbox from '@/pages/inbox/ui/inbox';
 import SignIn from '@/pages/sign-in/ui/sign-in';
 import SignUp from '@/pages/sign-up/ui/sign-up';
-import { ErrorFallback } from '@shared/ui';
+import { ErrorFallback } from '@/shared/ui';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 

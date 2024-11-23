@@ -1,18 +1,24 @@
+import { todoMutations, todoQueries } from '@/entities/todo/api';
 import {
   CreateTodoRequest,
   createTodoSchema,
+  Todo,
   useTodoStore,
 } from '@entities/todo/model';
-import { TodoApiService } from '@features/todo/api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 import * as Popover from '@radix-ui/react-popover';
 import { Toast } from '@shared/ui';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FieldValue, useForm } from 'react-hook-form';
 import * as styles from './todo-create-popover.css';
 
 export const TodoCreatePopover = () => {
+  const queryClient = useQueryClient();
+  const { addTodo } = useTodoStore((state) => state);
+  const [isOpenToast, setIsOpenToast] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,16 +31,30 @@ export const TodoCreatePopover = () => {
       content: '',
     },
   });
-  const { addTodo } = useTodoStore((state) => state);
-  const [isOpenToast, setIsOpenToast] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const { mutate, isPending } = useMutation({
+    ...todoMutations.create(),
+    onSuccess: (newTodo: Todo) => {
+      addTodo(newTodo);
+      queryClient.invalidateQueries({
+        queryKey: todoQueries.lists(),
+      });
+
+      queryClient.setQueryData(todoQueries.lists(), (old: Todo[] = []) => [
+        ...old,
+        newTodo,
+      ]);
+
+      reset();
+      setIsOpenToast(true);
+      setIsOpen(false);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const onSubmit = handleSubmit(async (data: FieldValue<CreateTodoRequest>) => {
-    const todo = await TodoApiService.createTodo(data as CreateTodoRequest);
-    addTodo(todo);
-    reset();
-    setIsOpenToast(true);
-    setIsOpen(false);
+    mutate(data as CreateTodoRequest);
   });
 
   const handleOpenChange = (open: boolean) => {
@@ -92,7 +112,7 @@ export const TodoCreatePopover = () => {
                   type="submit"
                   disabled={isSubmitting || !isValid}
                 >
-                  작업 추가
+                  {isPending ? '추가중...' : '작업 추가'}
                 </button>
               </div>
             </form>
