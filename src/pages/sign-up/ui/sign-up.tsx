@@ -1,22 +1,28 @@
-import { AuthApiService } from '@/features/auth/api';
-import { useAuth } from '@/features/auth/lib';
-import { AuthForm, AuthLayout, AuthLink } from '@/features/auth/ui';
+import { useMutation } from '@tanstack/react-query';
+
 import { SignUpRequest } from '@entities/auth/model';
+import { authMutations } from '@features/auth/api';
+import { useAuth } from '@features/auth/lib';
+import { AuthForm, AuthLayout, AuthLink } from '@features/auth/ui';
 
 const title = '회원 가입';
 
-/*
- * TODO: react-query mutation으로 에러 처리
- */
 const SignUp = () => {
   const { setUserStorage, navigateToApp } = useAuth();
+  const { mutate } = useMutation({
+    ...authMutations.signUp(),
+    onSuccess: (res, variables) => {
+      const token = res.token;
+      setUserStorage({ email: variables.email, token });
+      navigateToApp();
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const onSignUp = async ({ email, password }: SignUpRequest) => {
-    const response = await AuthApiService.signUp({ email, password });
-    const token = response?.token;
-
-    setUserStorage({ email, token });
-    navigateToApp();
+    mutate({ email, password });
   };
 
   return (
