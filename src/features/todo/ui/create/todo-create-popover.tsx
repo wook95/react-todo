@@ -1,10 +1,10 @@
-import { todoMutations, todoQueries } from '@/entities/todo/api';
 import {
   CreateTodoRequest,
   createTodoSchema,
   Todo,
   useTodoStore,
 } from '@entities/todo/model';
+import { todoMutations, todoQueries } from '@features/todo/api';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 import * as Popover from '@radix-ui/react-popover';
@@ -34,7 +34,7 @@ export const TodoCreatePopover = () => {
   const { mutate, isPending } = useMutation({
     ...todoMutations.create(),
     onSuccess: (newTodo: Todo) => {
-      addTodo(newTodo);
+      addTodo({ ...newTodo, isChecked: false });
       queryClient.invalidateQueries({
         queryKey: todoQueries.lists(),
       });

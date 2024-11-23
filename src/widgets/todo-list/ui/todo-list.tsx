@@ -1,14 +1,17 @@
-import { CheckboxGroup } from '@/shared/ui';
-import { useEffect, useState } from 'react';
-
-import { todoMutations, todoQueries } from '@/entities/todo/api';
-import { TodoItem } from '@/entities/todo/ui';
-import { TodoDetailDialog, TodoEditForm } from '@/features/todo/ui';
-import { Todo, useTodoStore } from '@entities/todo/model';
-import { useTodoFilters } from '@features/todo/lib';
-import { TodoFilters } from '@features/todo/ui';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+
+import { Todo, useTodoStore } from '@entities/todo/model';
+import { todoMutations, todoQueries } from '@features/todo/api';
+import { useTodoFilters } from '@features/todo/lib';
+import {
+  TodoDetailDialog,
+  TodoEditForm,
+  TodoFilters,
+  TodoItem,
+} from '@features/todo/ui';
+import { CheckboxGroup } from '@shared/ui';
 import * as styles from './todo-list.css.ts';
 
 export const TodoList = () => {

@@ -1,5 +1,5 @@
 import { ClientTodo } from '@entities/todo/model';
-import { TodoDetail } from '@entities/todo/ui';
+import { TodoDetail } from '@features/todo/ui';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross1Icon } from '@radix-ui/react-icons';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';

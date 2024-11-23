@@ -1,6 +1,6 @@
 import { TodoApiService } from '@/features/todo/api';
+import { CreateTodoRequest, TodoFilters } from '@entities/todo/model';
 import { queryOptions } from '@tanstack/react-query';
-import { CreateTodoRequest, TodoFilters } from '../model';
 
 export const todoQueries = {
   all: () => ['todos'] as const,

@@ -1,6 +1,6 @@
 import { create, StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { ClientTodo, Todo } from './todo.type';
+import { ClientTodo, Todo } from './todo.schema';
 
 interface TodoStore {
   todos: ClientTodo[];

@@ -1,5 +1,5 @@
-import { todoMutations, todoQueries } from '@/entities/todo/api';
 import { Todo, useTodoStore } from '@entities/todo/model';
+import { todoMutations, todoQueries } from '@features/todo/api';
 import * as Dialog from '@radix-ui/react-dialog';
 import { TrashIcon } from '@radix-ui/react-icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
