@@ -1,4 +1,4 @@
-import { Todo, useTodoStore } from '@entities/todo/model';
+import { Todo } from '@entities/todo/model';
 import { todoMutations, todoQueries } from '@features/todo/api';
 import * as Dialog from '@radix-ui/react-dialog';
 import { TrashIcon } from '@radix-ui/react-icons';
@@ -12,20 +12,14 @@ interface DeleteTodoProps {
 
 export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
   const queryClient = useQueryClient();
-  const { deleteTodo } = useTodoStore((state) => state);
 
   const { mutate } = useMutation({
     ...todoMutations.delete(),
     onSuccess: () => {
-      deleteTodo(todoId);
-      queryClient.invalidateQueries({
-        queryKey: todoQueries.lists(),
-      });
-
       queryClient.setQueryData(todoQueries.lists(), (old: Todo[] = []) =>
         old.filter((todo) => todo.id !== todoId),
       );
-
+      queryClient.invalidateQueries({ queryKey: todoQueries.lists() });
       onClose();
     },
   });

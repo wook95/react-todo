@@ -1458,6 +1458,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-devtools@npm:5.61.3":
+  version: 5.61.3
+  resolution: "@tanstack/query-devtools@npm:5.61.3"
+  checksum: 10c0/692daf4d9fa8f12a2fd21251cc30da281d1697d9cfa9abd5c5b8a148bfb266a5888fbd5808d2230e93cacc5dcea6b2fe7e4ac0006acb4987b894c51d5d2eae8d
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.61.3":
+  version: 5.61.3
+  resolution: "@tanstack/react-query-devtools@npm:5.61.3"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.61.3"
+  peerDependencies:
+    "@tanstack/react-query": ^5.61.3
+    react: ^18 || ^19
+  checksum: 10c0/4a6c617fda8ca2b1857bbdba21e175b83c5c5587a1c08995f42bcd96e59acd176c9539c246489303055692f48fdf7140813cf211d0c93eb6a5dd27c5d6fc709f
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.59.16":
   version: 5.60.5
   resolution: "@tanstack/react-query@npm:5.60.5"
@@ -3960,6 +3979,7 @@ __metadata:
     "@radix-ui/react-popover": "npm:^1.1.2"
     "@radix-ui/react-toast": "npm:^1.2.2"
     "@tanstack/react-query": "npm:^5.59.16"
+    "@tanstack/react-query-devtools": "npm:^5.61.3"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
     "@vanilla-extract/css": "npm:^1.16.0"

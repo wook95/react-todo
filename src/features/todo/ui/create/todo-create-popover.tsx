@@ -2,7 +2,6 @@ import {
   CreateTodoRequest,
   createTodoSchema,
   Todo,
-  useTodoStore,
 } from '@entities/todo/model';
 import { todoMutations, todoQueries } from '@features/todo/api';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,7 +15,6 @@ import * as styles from './todo-create-popover.css';
 
 export const TodoCreatePopover = () => {
   const queryClient = useQueryClient();
-  const { addTodo } = useTodoStore((state) => state);
   const [isOpenToast, setIsOpenToast] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const {
@@ -34,15 +32,11 @@ export const TodoCreatePopover = () => {
   const { mutate, isPending } = useMutation({
     ...todoMutations.create(),
     onSuccess: (newTodo: Todo) => {
-      addTodo({ ...newTodo, isChecked: false });
-      queryClient.invalidateQueries({
-        queryKey: todoQueries.lists(),
-      });
-
       queryClient.setQueryData(todoQueries.lists(), (old: Todo[] = []) => [
         ...old,
-        newTodo,
+        { ...newTodo, isChecked: false },
       ]);
+      queryClient.invalidateQueries({ queryKey: todoQueries.lists() });
 
       reset();
       setIsOpenToast(true);

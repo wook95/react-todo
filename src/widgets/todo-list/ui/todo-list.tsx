@@ -1,8 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Todo, useTodoStore } from '@entities/todo/model';
+import { Todo, useTodoCheckStore } from '@entities/todo/model';
 import { todoMutations, todoQueries } from '@features/todo/api';
 import { useTodoFilters } from '@features/todo/lib';
 import {
@@ -16,39 +16,30 @@ import * as styles from './todo-list.css.ts';
 
 export const TodoList = () => {
   const queryClient = useQueryClient();
-  const { todos, setTodos, toggleTodo, updateTodo } = useTodoStore(
-    (state) => state,
-  );
+  const { toggleTodo, checkedIds } = useTodoCheckStore((state) => state);
   const [editingId, setEditingId] = useState<string | null>(null);
   const { filters } = useTodoFilters();
-  const { data, isLoading } = useQuery({
+  const { data: todos, isLoading } = useQuery({
     ...todoQueries.list(filters),
+    select: (data) =>
+      data.map((todo) => ({
+        ...todo,
+        isChecked: checkedIds.has(todo.id),
+      })),
   });
 
   const { mutate } = useMutation({
     ...todoMutations.update(),
     onSuccess: (updatedTodo) => {
-      updateTodo(updatedTodo.id, updatedTodo);
-      queryClient.invalidateQueries({
-        queryKey: todoQueries.lists(),
-      });
       queryClient.setQueryData(todoQueries.lists(), (old: Todo[] = []) =>
         old.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)),
       );
+      queryClient.invalidateQueries({ queryKey: todoQueries.lists() });
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
-
-  useEffect(() => {
-    if (data) {
-      const mergedTodos = data.map((serverTodo) => ({
-        ...serverTodo,
-        isChecked: Boolean(
-          todos.find((t) => t.id === serverTodo.id)?.isChecked,
-        ),
-      }));
-      setTodos(mergedTodos);
-    }
-  }, [data]);
 
   if (isLoading) {
     return <div>Loading...</div>;
