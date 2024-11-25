@@ -5,5 +5,18 @@
   "trailingComma": "all",
   "printWidth": 80,
   "bracketSpacing": true,
-  "arrowParens": "always"
+  "arrowParens": "always",
+
+  "endOfLine": "auto",
+  "useTabs": false,
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "css",
+  "embeddedLanguageFormatting": "auto",
+  "singleAttributePerLine": false,
+  "bracketSameLine": false,
+  "jsxSingleQuote": false,
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "insertPragma": false,
+  "no-multiple-empty-lines": ["error", { "max": 1 }]
 }
