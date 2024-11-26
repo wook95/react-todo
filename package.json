@@ -1,8 +1,8 @@
 {
   "name": "todos",
   "scripts": {
-    "dev": "pnpm -r --parallel dev",
-    "build": "pnpm --filter server build && pnpm --filter todos-client build",
+    "dev": "pnpm --filter @todos/backend start & pnpm --filter @todos/client dev",
+    "build": "pnpm --filter @todos/backend build && pnpm --filter @todos/client build",
     "lint": "pnpm -r lint"
   },
   "devDependencies": {
