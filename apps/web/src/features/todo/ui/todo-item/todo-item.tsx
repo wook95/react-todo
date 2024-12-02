@@ -2,7 +2,7 @@ import { ClientTodo } from '@entities/todo/model';
 import { DeleteTodo, TodoToggle } from '@features/todo/ui';
 import { DotsHorizontalIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import * as Popover from '@radix-ui/react-popover';
-import { CheckboxGroup, Toast } from '@shared/ui';
+import { CheckboxGroup } from '@shared/ui';
 import { useState } from 'react';
 import * as styles from './todo-item.css';
 
@@ -14,7 +14,6 @@ interface TodoItemProps {
 }
 
 // @TODO: wrapDescription이 최선의 방법이었을까?
-// @TODO: 토스트메시지는 전역에서 관리해야될까?
 
 export const TodoItem = ({
   todo,
@@ -23,7 +22,6 @@ export const TodoItem = ({
   wrapDescription,
 }: TodoItemProps) => {
   const [openPopoverId, setOpenPopoverId] = useState<string | null>(null);
-  const [isOpenToast, setIsOpenToast] = useState(false);
 
   const description = (
     <CheckboxGroup.Description>
@@ -64,7 +62,6 @@ export const TodoItem = ({
               <DeleteTodo
                 onClose={() => {
                   setOpenPopoverId(null);
-                  setIsOpenToast(true);
                 }}
                 todoId={todo.id}
               />
@@ -72,14 +69,6 @@ export const TodoItem = ({
           </Popover.Root>
         </div>
       </CheckboxGroup.Item>
-
-      <Toast.Root
-        open={isOpenToast}
-        onOpenChange={setIsOpenToast}
-        duration={1300}
-      >
-        <Toast.Title>작업이 삭제되었습니다.</Toast.Title>
-      </Toast.Root>
     </>
   );
 };

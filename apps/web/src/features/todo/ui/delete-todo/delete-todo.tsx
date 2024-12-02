@@ -1,3 +1,4 @@
+import { useToastStore } from '@/shared/ui/toast';
 import { Todo } from '@entities/todo/model';
 import { todoMutations, todoQueries } from '@features/todo/api';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -12,6 +13,7 @@ interface DeleteTodoProps {
 
 export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
   const queryClient = useQueryClient();
+  const { showToast } = useToastStore();
 
   const { mutate } = useMutation({
     ...todoMutations.delete(),
@@ -20,6 +22,7 @@ export const DeleteTodo = ({ todoId, onClose }: DeleteTodoProps) => {
         old.filter((todo) => todo.id !== todoId),
       );
       queryClient.invalidateQueries({ queryKey: todoQueries.lists() });
+      showToast({ title: '작업이 삭제되었습니다.' });
       onClose();
     },
   });

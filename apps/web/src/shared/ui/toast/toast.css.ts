@@ -1,5 +1,5 @@
+import { colors } from '@/shared/ui/styles/theme.css';
 import { keyframes, style } from '@vanilla-extract/css';
-import { colors } from './styles/theme.css';
 
 export const toastRootHide = keyframes({
   from: {
