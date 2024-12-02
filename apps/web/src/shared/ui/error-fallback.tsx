@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import * as styles from './error-fallback.css';
 
 interface ErrorFallbackProps {
@@ -14,9 +13,9 @@ export function ErrorFallback({
     <div className={styles.errorContainer}>
       <h2>{message}</h2>
       {import.meta.env.MODE !== 'production' && <pre>{error.message}</pre>}
-      <Link to="/" className={styles.resetButton}>
+      <a href="/" className={styles.resetButton}>
         홈으로 돌아가기
-      </Link>
+      </a>
     </div>
   );
 }
