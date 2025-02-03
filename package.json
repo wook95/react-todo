@@ -1,8 +1,10 @@
 {
   "name": "todos",
   "scripts": {
-    "dev": "pnpm --filter @todos/backend start & pnpm --filter @todos/client dev",
-    "build": "pnpm --filter @todos/backend build && pnpm --filter @todos/client build",
+    "dev": "pnpm --filter @todos/backend start & pnpm --filter @todos/web-react dev",
+    "build": "pnpm --filter @todos/backend build && pnpm --filter @todos/web-react build",
+    "build:angular": "pnpm --filter @todos/web-angular build",
+    "dev:angular": "pnpm --filter @todos/web-angular start",
     "lint": "pnpm -r lint"
   },
   "devDependencies": {
