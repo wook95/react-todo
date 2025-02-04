@@ -5,6 +5,8 @@
     "build": "pnpm --filter @todos/backend build && pnpm --filter @todos/web-react build",
     "build:angular": "pnpm --filter @todos/web-angular build",
     "dev:angular": "pnpm --filter @todos/web-angular start",
+    "dev:react": "pnpm --filter @todos/web-react dev",
+    "dev:server": "pnpm --filter @todos/backend start",
     "lint": "pnpm -r lint"
   },
   "devDependencies": {
