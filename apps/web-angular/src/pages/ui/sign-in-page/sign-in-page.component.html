@@ -1,14 +1,39 @@
 <div>
   <h1>로그인</h1>
 
-  <form class="form-container" [formGroup]="form">
+  <form class="form-container" [formGroup]="form" (ngSubmit)="signIn()">
     <input hlmInput type="text" placeholder="아이디" formControlName="email" />
+    @if (
+      form.controls.email.errors?.['required'] && form.controls.email.touched
+    ) {
+      <p>이메일을 입력해주세요</p>
+    }
+    @if (form.controls.email.errors?.['email'] && form.controls.email.touched) {
+      <p>유효한 이메일을 입력해주세요</p>
+    }
     <input
       hlmInput
       type="password"
       placeholder="비밀번호"
       formControlName="password"
     />
-    <button hlmBtn>로그인</button>
+    @if (
+      form.controls.password.errors?.['required'] &&
+      form.controls.password.touched
+    ) {
+      <p>비밀번호를 입력해주세요</p>
+    }
+    @if (
+      form.controls.password.errors?.['minlength'] &&
+      form.controls.password.touched
+    ) {
+      <p>비밀번호는 최소 8자 이상이어야 합니다</p>
+    }
+    <button hlmBtn [disabled]="form.invalid">로그인</button>
   </form>
+</div>
+
+<div>
+  회원이 아니신가요?
+  <button hlmBtn (click)="navigateToSignUp()">회원가입</button> 하러가기
 </div>

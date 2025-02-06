@@ -49,6 +49,11 @@
   color-scheme: dark;
 }
 
+html,
+body {
+  height: 100vh;
+}
+
 // @layer base {
 //   * {
 //     @apply border-border;
