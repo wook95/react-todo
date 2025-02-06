@@ -1,4 +1,4 @@
-import { AuthApiService } from '@/entities/auth/api';
+import { AuthService } from '@/entities/auth/model/auth.service';
 import { Component, inject } from '@angular/core';
 import {
   FormGroup,
@@ -16,7 +16,7 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
   styleUrl: './sign-up-page.component.scss',
 })
 export class SignUpPageComponent {
-  private authApiService = inject(AuthApiService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   public form = new FormGroup<{
@@ -34,14 +34,11 @@ export class SignUpPageComponent {
   });
 
   public signUp() {
-    this.authApiService
-      .signUp(this.form.value.email ?? '', this.form.value.password ?? '')
-      .subscribe((res) => {
-        console.log(res);
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/inbox']);
-        this.form.reset();
-      });
+    this.authService.signUp(
+      this.form.value.email ?? '',
+      this.form.value.password ?? '',
+    );
+    this.form.reset();
   }
 
   public navigateToSignIn() {
