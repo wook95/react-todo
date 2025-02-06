@@ -1,4 +1,4 @@
-import { AuthApiService } from '@/entities/auth/api/auth-api.service';
+import { AuthApiService } from '@/entities/auth/api';
 import { Component, inject } from '@angular/core';
 import {
   FormGroup,
@@ -11,7 +11,6 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 
 @Component({
-  selector: 'app-sign-up-page',
   imports: [HlmInputDirective, HlmButtonDirective, ReactiveFormsModule],
   templateUrl: './sign-up-page.component.html',
   styleUrl: './sign-up-page.component.scss',
@@ -39,6 +38,8 @@ export class SignUpPageComponent {
       .signUp(this.form.value.email ?? '', this.form.value.password ?? '')
       .subscribe((res) => {
         console.log(res);
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/inbox']);
         this.form.reset();
       });
   }
