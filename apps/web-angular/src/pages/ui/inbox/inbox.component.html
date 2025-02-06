@@ -1,4 +1,25 @@
 <app-inbox-sidebar />
 <div>
   <h1>Inbox</h1>
+  @for (todo of todos(); track todo.id) {
+    <app-todo-item
+      [todo]="todo"
+      (deleteTodo)="deleteTodo(todo.id)"
+      (updateTodo)="startEditing(todo)"
+    />
+    @if (editingTodo()?.id === todo.id) {
+      <app-todo-item-form
+        [todo]="editingTodo()"
+        (create)="updateTodo($event)"
+      />
+      <button hlmBtn (click)="stopEditing()">Cancel</button>
+    }
+  }
 </div>
+
+<button hlmBtn (click)="startCreating()">Create</button>
+
+@if (isCreating()) {
+  <app-todo-item-form (create)="createTodo($event)" />
+  <button hlmBtn (click)="stopCreating()">Cancel</button>
+}

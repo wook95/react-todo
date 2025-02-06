@@ -1,0 +1,11 @@
+<div class="todo-item">
+  <input type="checkbox" [checked]="todo().isChecked" />
+  <div class="todo-item__content">
+    <h3>{{ todo().title }}</h3>
+    <p>{{ todo().content }}</p>
+  </div>
+  <div class="todo-item__actions">
+    <button (click)="updateTodo.emit(todo())">Edit</button>
+    <button (click)="deleteTodo.emit()">Delete</button>
+  </div>
+</div>
